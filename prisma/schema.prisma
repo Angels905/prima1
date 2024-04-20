@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Livre {
+  id              Int        @id @default(autoincrement())
+  nom_livre       String
+  nom_auteur      String
+  date_de_sortier DateTime
+  updatedAt       DateTime   @updatedAt //info peut etre modifier et actualise auto
+  Catalogue       Catalogue? @relation(fields: [catalogueId], references: [id])
+  catalogueId     Int?
+}
+
+model Catalogue {
+  id              Int     @id @default(autoincrement())
+  nom_catalogue   String  @unique
+  nombre_de_livre Int
+  livre           Livre[] // un a plusieur (ship+alt+f)
+}
+
+model Compte {
+  id Int @id @default(autoincrement())
+
+  createdAl DateTime @default(now())
+  updatedAt DateTime @updatedAt //info peut etre modifier et actualise auto
+
+  etudiant Etudiant[]
+  admin    Administrateur[]
+  visiteur Visiteur[]
+}
+ 
+model Etudiant {
+  nom      String  @unique
+  prenom   String? //?facultatif
+  password String
+  email    String  @unique
+  active   Boolean @default(false)
+
+  id Int @id @default(autoincrement())
+
+  Compte   Compte? @relation(fields: [compteId], references: [id])
+  compteId Int?
+}
+
+model Administrateur {
+  id Int @id @default(autoincrement())
+
+  nom      String  @unique
+  prenom   String? //?facultatif
+  password String
+  email    String  @unique
+  active   Boolean @default(false)
+  Compte   Compte? @relation(fields: [compteId], references: [id])
+  compteId Int?
+}
+
+model Visiteur {
+  id       Int     @id @default(autoincrement())
+  nom      String  @unique
+  prenom   String? //?facultatif
+  password String
+  email    String  @unique
+  active   Boolean @default(false)
+  Compte   Compte? @relation(fields: [compteId], references: [id])
+  compteId Int?
+}
