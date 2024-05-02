@@ -14,65 +14,70 @@ datasource db {
 }
 
 model Livre {
-  id              Int        @id @default(autoincrement())
+  id              Int      @id @default(autoincrement())
   nom_livre       String
-  nom_auteur      String
+  
   date_de_sortier DateTime
-  updatedAt       DateTime   @updatedAt //info peut etre modifier et actualise auto
-  Catalogue       Catalogue? @relation(fields: [catalogueId], references: [id])
-  catalogueId     Int?
+  Favorie         Boolean
+  updatedAt       DateTime @updatedAt //info peut etre modifier et actualise auto
+  Auteur          Auteur?  @relation(fields: [auteurId], references: [id])
+  auteurId        Int?
+}
+
+model Auteur {
+  id         Int     @id @default(autoincrement())
+  nom_auteur String
+  bio_Auteur String
+  livre      Livre[]
+}
+
+model livre_catalogue {
+  id_     Int  @id
+  CatalogueId Int?
+  LivreId     Int?
 }
 
 model Catalogue {
-  id              Int     @id @default(autoincrement())
-  nom_catalogue   String  @unique
+  id              Int    @id @default(autoincrement())
+  nom_catalogue   String @unique
   nombre_de_livre Int
-  livre           Livre[] // un a plusieur (ship+alt+f)
+}
+
+model livre_compte {
+  id       Int  @id @default(autoincrement())
+  CompteId Int?
+  livreId  Int?
+}
+
+model Telechargement {
+  id       Int  @id @default(autoincrement())
+  livreId  Int?
+  CompteId Int?
 }
 
 model Compte {
   id Int @id @default(autoincrement())
 
-  createdAl DateTime @default(now())
-  updatedAt DateTime @updatedAt //info peut etre modifier et actualise auto
-
-  etudiant Etudiant[]
-  admin    Administrateur[]
-  visiteur Visiteur[]
-}
- 
-model Etudiant {
-  nom      String  @unique
-  prenom   String? //?facultatif
-  password String
-  email    String  @unique
-  active   Boolean @default(false)
-
-  id Int @id @default(autoincrement())
-
-  Compte   Compte? @relation(fields: [compteId], references: [id])
-  compteId Int?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt //info peut etre modifier et actualise auto
+  nom          String   @unique
+  prenom       String?
+  email        String   @unique
+  mot_de_passe String
+  Etudiant     Boolean
+  Visiteur     Boolean
+  Admin        Boolean
 }
 
-model Administrateur {
-  id Int @id @default(autoincrement())
-
-  nom      String  @unique
-  prenom   String? //?facultatif
-  password String
-  email    String  @unique
-  active   Boolean @default(false)
-  Compte   Compte? @relation(fields: [compteId], references: [id])
-  compteId Int?
+model Abonnement {
+  id        Int  @id @default(autoincrement())
+  CompteId  Int?
+  PackageId Int?
 }
 
-model Visiteur {
-  id       Int     @id @default(autoincrement())
-  nom      String  @unique
-  prenom   String? //?facultatif
-  password String
-  email    String  @unique
-  active   Boolean @default(false)
-  Compte   Compte? @relation(fields: [compteId], references: [id])
-  compteId Int?
+model Package {
+  id             Int     @id @default(autoincrement())
+  package_Argent Boolean
+  package_bronse Boolean
+  package_or     Boolean
 }
