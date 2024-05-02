@@ -14,59 +14,72 @@ datasource db {
 }
 
 model Livre {
-  id              Int      @id @default(autoincrement())
+  id              Int               @id @default(autoincrement())
   nom_livre       String
-  nom_auteurs      String
+  nom_auteurs     String
   date_de_sortier DateTime
   Favorie         Boolean
-  updatedAt       DateTime @updatedAt //info peut etre modifier et actualise auto
+  updatedAt       DateTime          @updatedAt //info peut etre modifier et actualise auto
   auteur          Auteur[]
+  livre_catalogue livre_catalogue[]
+  livre_compte    livre_compte[]
+  Telechargement  Telechargement[]
 }
 
 model Auteur {
-  id         Int    @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   nom_auteurs String
-  bio_auteur String
+  bio_auteur  String
+
   Livre   Livre? @relation(fields: [livreId], references: [id])
   livreId Int?
 }
 
 model livre_catalogue {
-  id_         Int  @id @default(autoincrement())
-  CatalogueId Int?
-  LivreId     Int?
+  id_         Int        @id @default(autoincrement())
+  Catalogue   Catalogue? @relation(fields: [catalogueId], references: [id])
+  catalogueId Int?
+  Livre       Livre?     @relation(fields: [livreId], references: [id])
+  livreId     Int?
 }
 
 model Catalogue {
-  id              Int    @id @default(autoincrement())
-  nom_catalogue   String @unique
+  id              Int               @id @default(autoincrement())
+  nom_catalogue   String            @unique
   nombre_de_livre Int
+  livre_catalogue livre_catalogue[]
 }
 
 model livre_compte {
-  id       Int  @id @default(autoincrement())
-  CompteId Int?
+  id       Int     @id @default(autoincrement())
+  Compte   Compte? @relation(fields: [compteId], references: [id])
+  compteId Int?
+  Livre    Livre?  @relation(fields: [livreId], references: [id])
   livreId  Int?
 }
 
 model Telechargement {
-  id       Int  @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
+  Livre    Livre?  @relation(fields: [livreId], references: [id])
   livreId  Int?
-  CompteId Int?
+  Compte   Compte? @relation(fields: [compteId], references: [id])
+  compteId Int?
 }
 
 model Compte {
   id Int @id @default(autoincrement())
 
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt //info peut etre modifier et actualise auto
-  nom          String   @unique
-  prenom       String?
-  email        String   @unique
-  mot_de_passe String
-  Etudiant     Boolean
-  Visiteur     Boolean
-  Admin        Boolean
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt //info peut etre modifier et actualise auto
+  nom            String           @unique
+  prenom         String?
+  email          String           @unique
+  mot_de_passe   String
+  Etudiant       Boolean
+  Visiteur       Boolean
+  Admin          Boolean
+  livre_compte   livre_compte[]
+  Telechargement Telechargement[]
 }
 
 model Abonnement {
