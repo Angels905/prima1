@@ -16,23 +16,23 @@ datasource db {
 model Livre {
   id              Int      @id @default(autoincrement())
   nom_livre       String
-  nom_auteurs  String
+  nom_auteurs      String
   date_de_sortier DateTime
   Favorie         Boolean
   updatedAt       DateTime @updatedAt //info peut etre modifier et actualise auto
-  Auteur          Auteur?  @relation(fields: [auteurId], references: [id])
-  auteurId        Int?
+  auteur          Auteur[]
 }
 
 model Auteur {
-  id         Int     @id @default(autoincrement())
+  id         Int    @id @default(autoincrement())
   nom_auteur String
-  bio_Auteur String
-  livre      Livre[]
+  bio_auteur String
+  Livre   Livre? @relation(fields: [livreId], references: [id])
+  livreId Int?
 }
 
 model livre_catalogue {
-  id_     Int  @id
+  id_         Int  @id @default(autoincrement())
   CatalogueId Int?
   LivreId     Int?
 }
