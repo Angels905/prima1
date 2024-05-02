@@ -16,7 +16,7 @@ datasource db {
 model Livre {
   id              Int      @id @default(autoincrement())
   nom_livre       String
-  
+  nom_auteur  String
   date_de_sortier DateTime
   Favorie         Boolean
   updatedAt       DateTime @updatedAt //info peut etre modifier et actualise auto
