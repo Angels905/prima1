@@ -25,7 +25,7 @@ model Livre {
 
 model Auteur {
   id         Int    @id @default(autoincrement())
-  nom_auteur String
+  nom_auteurs String
   bio_auteur String
   Livre   Livre? @relation(fields: [livreId], references: [id])
   livreId Int?
