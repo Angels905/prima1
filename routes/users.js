@@ -12,14 +12,14 @@ const {getAllUsers, getUser, getUserByNom_livre} = require('../model/users.js')/
  
  });
 
-// router.get('/:id ([0-9]+)', function(req, res, next) {//chaque fuction    un router
-//     getUser(+req.params.id).then(user =>res.json(users ))//ne pas oublie le + pour les entiers
+router.get('/:id ([0-9]+)', function(req, res, next) {//chaque fuction    un router
+    getUser(+req.params.id).then(user =>res.json(users ))//ne pas oublie le + pour les entiers
  
-// }); 
+}); 
 
-// router.get('/:nom_livre', function(req, res, next) {
-//     getUserByNom_livre(req.params.nom_livre).then(user =>res.json(users)) 
-// });
+router.get('/:nom_livre', function(req, res, next) {
+    getUserByNom_livre(req.params.nom_livre).then(user =>res.json(users)) 
+});
 
 module.exports = router;
    
