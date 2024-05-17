@@ -14,14 +14,14 @@ function getUserByNom_livre(nom_livre){//recupere un element pas le nom
     return prisma.livre.findUnique( {where : {nom_livre}})
 }
 
-//requete delete compte
+//requete delete livre
 function deletcompte(id){//supprime par id
-    return prisma.compte.delete( {where : {id}})
+    return prisma.livre.delete( {where : {id}})
 }
 
-//rée compte
-function addCompte(compte){
-    return prisma.compte.create( {data: compte})
+//rée livre
+function addCompte(livre){
+    return prisma.livre.create( {data: livre})
 }
 
 //modifier livre

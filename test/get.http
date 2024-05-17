@@ -1,43 +1,38 @@
-GET   http//localhost:3000
+GET   http://localhost:3000/
 
 ###
-GET   http//localhost:3000/users
+GET   http://localhost:3000/users
+
 
 ###
-DELETE  http//localhost:3000/users/2
+GET   http://localhost:3000/users/3
+
 
 ###
-POST  http//localhost:3000/users/
+DELETE  http://localhost:3000/users/2
+
+###
+POST  http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "nom": "angel",
-    "prenom":"sd",
-    "email":"angel@gmail.com",
-    "mot_de_passe":"1234",
-
+  "id" : 3,                         
+  "nom_livre" : "tintin",       
+  "date_de_sortier" : "1970-02-09T00:00:00.000Z", 
+  "Favorie" : false         
 }
 
 ###
-PATCH   http//localhost:3000/users/
+PATCH   http://localhost:3000/users
 Content-Type: application/json
 
-{//precise par id qui doit etre modifie 
-   "id":1,               
-   "Etudiant": "false",
-  "Visiteur":  "true",
-  "Admin":   "false"
-    
+{ 
+
+ "id":3,               
+ "nom_livre" : "dd",       
+  "date_de_sortier" : "1990-06-09T00:00:00.000Z", 
+  "Favorie" : true            
+
 }
 
-###
-PATCH   http//localhost:3000/users/
-Content-Type: application/json
 
-{//precise par id qui doit etre modifie 
-   "id":1,             
-  "nom_livre":"toti",       
-  "nom_auteurs":"paul",     
-  "date_de_sortier" :"29/03/1899"
-    
-}
