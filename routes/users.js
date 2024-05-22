@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
   
-const {getAllUsers, getUser, getUserByNom_livre, deletcompte,addCompte,updateLivre} = require('../model/users.js')// ajoute les nom des function defini
+const {getAllUsers, getUser, deletcompte,addCompte,updateLivre} = require('../model/users.js')// ajoute les nom des function defini
  
 /**
  * getall livre
@@ -12,14 +12,12 @@ const {getAllUsers, getUser, getUserByNom_livre, deletcompte,addCompte,updateLiv
  
  });
 
-router.get('/:id ', function(req, res, next) {//chaque fuction    un router
-    getUser(+req.params.id).then(user =>res.json(user ))//ne pas oublie le + pour les entiers
+router.get('/:id', function(req, res, next) {//chaque fuction    un router
+    getUser(+req.params.id).then(user =>res.json(user))//ne pas oublie le + pour les entiers
  
 }); 
 
-// router.get('/:nom_livre', function(req, res, next) {
-//     getUserByNom_livre(req.params.nom_livre).then(user =>res.json(users)) 
-// });
+
 
 /**
  * crée livre
@@ -40,7 +38,7 @@ router.delete('/:id', function(req, res, next) {
  * modifie livre
 */ 
 
-router.patch('/:id', function(req, res, next) {
+router.patch('/', function(req, res, next) {
     updateLivre(req.body).then(user =>res.json(user)) 
    });
 
